@@ -2,15 +2,15 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portofolio Ahwaz</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
       background-color: #e6f0ff;
       color: #003366;
+      margin: 0;
+      padding: 0;
     }
     header {
       background-color: #3399ff;
@@ -45,7 +45,7 @@
     /* Style untuk game */
     .game-container {
       display: none;
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
@@ -75,6 +75,54 @@
       font-size: 16px;
     }
     .start-button:hover {
+      background-color: #0059b3;
+    }
+    /* Chatbot */
+    .chatbot-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 300px;
+      height: 400px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      display: none;
+      flex-direction: column;
+    }
+    .chatbot-header {
+      background-color: #3399ff;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      border-radius: 10px 10px 0 0;
+    }
+    .chatbot-messages {
+      flex-grow: 1;
+      padding: 10px;
+      overflow-y: auto;
+      border-bottom: 1px solid #ccc;
+    }
+    .chatbot-input {
+      display: flex;
+      padding: 10px;
+    }
+    .chatbot-input input {
+      flex-grow: 1;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .chatbot-input button {
+      background-color: #3399ff;
+      color: white;
+      border: none;
+      padding: 8px;
+      border-radius: 5px;
+      margin-left: 5px;
+      cursor: pointer;
+    }
+    .chatbot-input button:hover {
       background-color: #0059b3;
     }
   </style>
@@ -111,6 +159,11 @@
       <h2>Mulai Game</h2>
       <button class="start-button" onclick="startGame()">Mulai Game Flappy Bird</button>
     </div>
+
+    <div class="section">
+      <h2>Ahwaz.bot</h2>
+      <button class="start-button" onclick="toggleChatbot()">Chat dengan Ahwaz.bot</button>
+    </div>
   </div>
 
   <footer>
@@ -123,8 +176,18 @@
     <div class="game-over" id="gameOver">Game Over! Tekan Space untuk mulai lagi.</div>
   </div>
 
+  <!-- Chatbot Container -->
+  <div class="chatbot-container" id="chatbotContainer">
+    <div class="chatbot-header">Ahwaz.bot</div>
+    <div class="chatbot-messages" id="chatbotMessages"></div>
+    <div class="chatbot-input">
+      <input type="text" id="chatInput" placeholder="Ketik pesan...">
+      <button onclick="sendMessage()">Kirim</button>
+    </div>
+  </div>
+
   <script>
-    // Variabel untuk game
+    // Game variables
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
     let bird, pipes, score, gameInterval, isGameOver;
@@ -134,114 +197,9 @@
     const PIPE_WIDTH = 50;
     const PIPE_SPACING = 150; // Space between top and bottom pipes
 
-    // Fungsi untuk memulai game
+    // Function to start the game
     function startGame() {
       document.querySelector('.container').style.display = 'none';
-      document.getElementById('gameContainer').style.display = 'flex';
-
-      bird = {
-        x: 50,
-        y: canvas.height / 2,
-        width: 30,
-        height: 30,
-        velocity: 0,
-      };
-
-      pipes = [];
-      score = 0;
-      isGameOver = false;
-
-      document.getElementById('gameOver').style.display = 'none';
-      clearInterval(gameInterval);
-      gameInterval = setInterval(gameLoop, 1000 / 120); // 120 frames per second
-    }
-
-    // Fungsi untuk menjalankan loop game
-    function gameLoop() {
-      clearCanvas();
-      drawBird();
-      moveBird();
-      spawnPipes();
-      movePipes();
-      checkCollisions();
-      drawPipes();
-      updateScore();
-    }
-
-    // Fungsi untuk membersihkan canvas
-    function clearCanvas() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
-
-    // Fungsi untuk menggambar burung
-    function drawBird() {
-      ctx.fillStyle = "#FFD700"; // Warna kuning untuk burung
-      ctx.beginPath();
-      ctx.moveTo(bird.x, bird.y);
-      ctx.lineTo(bird.x + bird.width, bird.y + bird.height);
-      ctx.lineTo(bird.x - bird.width, bird.y + bird.height);
-      ctx.closePath();
-      ctx.fill();
-    }
-
-    // Fungsi untuk menggerakkan burung
-    function moveBird() {
-      bird.velocity += GRAVITY;
-      bird.y += bird.velocity;
-      if (bird.y > canvas.height - bird.height) {
-        endGame();
-      }
-    }
-
-    // Fungsi untuk menambahkan pipa
-    function spawnPipes() {
-      if (frame % SPAWN_RATE === 0) {
-        let topPipeHeight = Math.floor(Math.random() * (canvas.height / 2));
-        let bottomPipeHeight = canvas.height - topPipeHeight - PIPE_SPACING;
-
-        pipes.push({ x: canvas.width, topHeight: topPipeHeight, bottomHeight: bottomPipeHeight });
-      }
-    }
-
-    // Fungsi untuk menggerakkan pipa
-    function movePipes() {
-      for (
+      document.getElementById
 ::contentReference[oaicite:0]{index=0}
-      <!-- Bagian CSS -->
-<style>
-  .game-container {
-    display: none;
-    position: fixed; /* agar menutupi seluruh layar */
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: #70c5ce;
-    z-index: 9999; /* agar muncul di atas elemen lain */
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-</style>
-
-<!-- Bagian HTML -->
-<div class="section">
-  <h2>Mulai Game</h2>
-  <button class="start-button" onclick="startGame()">Mulai Game Flappy Bird</button>
-</div>
-
-<div class="game-container" id="gameContainer">
-  <canvas id="gameCanvas" width="400" height="600"></canvas>
-  <div class="game-over" id="gameOver">Game Over! Tekan Space untuk mulai lagi.</div>
-</div>
-
-<!-- Bagian JavaScript -->
-<script>
-  function startGame() {
-    document.querySelector('.container').style.display = 'none';
-    document.getElementById('gameContainer').style.display = 'flex';
-    // lanjutkan logika game...
-  }
-</script>
-
  
