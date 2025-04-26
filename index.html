@@ -42,6 +42,38 @@
       bottom: 0;
       width: 100%;
     }
+
+    /* Style untuk game */
+    .game-section {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .game-button {
+      background-color: #3399ff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .game-button:hover {
+      background-color: #0059b3;
+    }
+    .game-input {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 100px;
+    }
+    .game-result {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -71,11 +103,46 @@
       <h2>Asal Sekolah</h2>
       <p>Saya berasal dari <strong>SMP Al Irsyad</strong>.</p>
     </div>
+
+    <!-- Mini Game Section -->
+    <div class="game-section">
+      <h2>Mini Game: Tebak Angka</h2>
+      <p>Komputer telah memilih angka antara 1 sampai 100. Bisakah kamu menebaknya?</p>
+      <input type="number" id="guessInput" class="game-input" placeholder="Masukkan tebakan">
+      <button onclick="checkGuess()" class="game-button">Cek Tebakan</button>
+      <div class="game-result" id="result"></div>
+    </div>
   </div>
 
   <footer>
     &copy; 2025 Ahwaz
   </footer>
+
+  <script>
+    let targetNumber = Math.floor(Math.random() * 100) + 1;
+
+    function checkGuess() {
+      const guess = parseInt(document.getElementById('guessInput').value);
+      const result = document.getElementById('result');
+
+      if (isNaN(guess) || guess < 1 || guess > 100) {
+        result.textContent = "Masukkan angka antara 1 sampai 100.";
+        result.style.color = "red";
+        return;
+      }
+
+      if (guess === targetNumber) {
+        result.textContent = "Selamat! Kamu menebak dengan benar!";
+        result.style.color = "green";
+      } else if (guess < targetNumber) {
+        result.textContent = "Terlalu rendah. Coba lagi!";
+        result.style.color = "orange";
+      } else {
+        result.textContent = "Terlalu tinggi. Coba lagi!";
+        result.style.color = "orange";
+      }
+    }
+  </script>
 
 </body>
 </html>
