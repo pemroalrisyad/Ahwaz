@@ -207,4 +207,41 @@
     function movePipes() {
       for (
 ::contentReference[oaicite:0]{index=0}
+      <!-- Bagian CSS -->
+<style>
+  .game-container {
+    display: none;
+    position: fixed; /* agar menutupi seluruh layar */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #70c5ce;
+    z-index: 9999; /* agar muncul di atas elemen lain */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+</style>
+
+<!-- Bagian HTML -->
+<div class="section">
+  <h2>Mulai Game</h2>
+  <button class="start-button" onclick="startGame()">Mulai Game Flappy Bird</button>
+</div>
+
+<div class="game-container" id="gameContainer">
+  <canvas id="gameCanvas" width="400" height="600"></canvas>
+  <div class="game-over" id="gameOver">Game Over! Tekan Space untuk mulai lagi.</div>
+</div>
+
+<!-- Bagian JavaScript -->
+<script>
+  function startGame() {
+    document.querySelector('.container').style.display = 'none';
+    document.getElementById('gameContainer').style.display = 'flex';
+    // lanjutkan logika game...
+  }
+</script>
+
  
